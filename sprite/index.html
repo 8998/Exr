@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>sprite背景图自适应</title>
+
+<style>
+body{
+	margin: 0;
+	padidng:0;
+}
+.list {
+	margin: 0;
+	padding: 0;
+}
+.item {
+	padding: 0;
+	position:relative;
+	height:0.8rem;
+	list-style: none;
+	border: solid 1px #151b75;
+	margin: 5px 0;
+}
+.item:first-child:after {
+	content:'';
+	width:0.36rem;
+	height:0.36rem;
+	position:absolute;
+	top:0.04rem;
+	left:0.2rem;
+	background:url("ico_collection.png") no-repeat 0 0;
+	/*background-size:auto 6.32rem;*/
+	background-size:auto 3.16rem;
+}
+.icon {
+	content:'';
+	width:0.72rem;
+	height:0.72rem;
+	position:absolute;
+	top:0.04rem;
+	left:0.2rem;
+	background: url("ico_collection.png") no-repeat;
+	background-size:auto 6.32rem;
+}
+.icon__foo{
+	background-position: 0 -0.8rem;
+}
+.icon__bar{
+	background-position:  0 -1.6rem;
+}
+.icon__baz{
+	background-position: 0 -2.4rem;
+}
+</style>
+
+</head>
+
+<body>
+
+<ul class="list">
+	<li class="item">
+	</li>
+	<li class="item">
+		<span class="icon icon__foo"></span>
+	</li>
+	<li class="item">
+		<span class="icon icon__bar"></span>
+	</li>
+	<li class="item">
+		<span class="icon icon__baz"></span>
+	</li>
+</ul>
+
+
+<script type="text/javascript">
+	;(function(win,doc){
+		"use strict";
+		var _self = {};
+		_self.width = 640;//设置默认最大宽度
+		_self.fontSize = 100;//默认字体大小
+		_self.widthProportion = function () {
+			var p = (doc.body && doc.body.clientWidth || doc.getElementsByTagName("html")[0].offsetWidth) / _self.width;
+			return p < 0.5 ? 0.5 : p;
+		};
+		_self.changePage = function () {
+			doc.getElementsByTagName("html")[0].setAttribute("style", "font-size:" + _self.widthProportion() * _self.fontSize + "px !important");
+		};
+		win.addEventListener("resize",_self.changePage,!1);
+		win.addEventListener("load",_self.changePage,!1);
+	})(window,document)
+</script>
+</body>
+</html>
